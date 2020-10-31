@@ -45,3 +45,72 @@ struct Static {
 let s = Static(name: "123", x: "x")
 Static.id
 Static.staticMethod()
+
+
+// Polymorphism and typecasting
+// Both classes type at the same time
+// everything referes to parent type
+// The subclass never lose their class status and they always use overriden methods
+// Convert to class type using as?
+// primitive type using initializers
+class God {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func status() {
+        print("I am God")
+    }
+}
+
+class AK: God {
+    var n: String
+    init(n: String) {
+        self.n = n
+        super.init(name: self.n)
+    }
+    override func status() {
+        print("I am AK")
+    }
+}
+
+
+class SK: God {
+    var n: String
+    init(n: String) {
+        self.n = n
+        super.init(name: self.n)
+    }
+    override func status() {
+        print("I am SK")
+    }
+}
+let a = AK(n: "a")
+let b = God(name: "G")
+let c = SK(n: "G")
+let d = SK(n: "G")
+
+let e: [God] = [a, b, c, d]
+for item in e {
+    let i = item as? SK
+    i?.status()
+}
+
+// Closures
+// variable holding functions and also params associated with it
+// aka Anonymous functions
+// Trailing closures
+let myClosure = { (name: String) in
+    print("I am closure string \(name)")
+}
+myClosure("AK")
+
+func trailingClosureFunction(firstParam: String, secondParam: (_ x: String) -> Void) {
+    print("I am inisde trailing closure function")
+    secondParam(firstParam)
+    print("DONE")
+}
+
+trailingClosureFunction(firstParam: "Ak1", secondParam: myClosure)
